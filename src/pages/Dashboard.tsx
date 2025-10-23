@@ -2,9 +2,12 @@ import { Navigation } from "@/components/Navigation";
 import { StatCard } from "@/components/StatCard";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { DollarSign, TrendingUp, Wallet, ArrowUpRight, ArrowDownRight } from "lucide-react";
+import { DollarSign, TrendingUp, Wallet, ArrowUpRight, ArrowDownRight, LogOut } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Dashboard = () => {
+  const { user, signOut } = useAuth();
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -14,12 +17,22 @@ const Dashboard = () => {
           {/* Header */}
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-4xl font-bold text-foreground mb-2">Welcome back</h1>
+              <h1 className="text-4xl font-bold text-foreground mb-2">Welcome back{user?.email ? `, ${user.email.split('@')[0]}` : ''}</h1>
               <p className="text-muted-foreground">Here's your financial overview</p>
             </div>
-            <Button className="bg-gradient-primary shadow-medium hover:shadow-strong transition-all duration-300">
-              Link New Account
-            </Button>
+            <div className="flex gap-3">
+              <Button className="bg-gradient-primary shadow-medium hover:shadow-strong transition-all duration-300">
+                Link New Account
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={signOut}
+                className="gap-2"
+              >
+                <LogOut className="w-4 h-4" />
+                Sign Out
+              </Button>
+            </div>
           </div>
 
           {/* Stats Grid */}

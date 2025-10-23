@@ -14,16 +14,269 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      budgets: {
+        Row: {
+          category: string
+          created_at: string | null
+          current_spending: number | null
+          id: string
+          limit_amount: number
+          period_end: string
+          period_start: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          current_spending?: number | null
+          id?: string
+          limit_amount: number
+          period_end: string
+          period_start: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          current_spending?: number | null
+          id?: string
+          limit_amount?: number
+          period_end?: string
+          period_start?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      goals: {
+        Row: {
+          created_at: string | null
+          current_amount: number | null
+          goal_name: string
+          id: string
+          target_amount: number
+          target_date: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          current_amount?: number | null
+          goal_name: string
+          id?: string
+          target_amount: number
+          target_date?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          current_amount?: number | null
+          goal_name?: string
+          id?: string
+          target_amount?: number
+          target_date?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      investment_holdings: {
+        Row: {
+          account_id: string
+          created_at: string | null
+          current_price: number | null
+          id: string
+          quantity: number
+          ticker_symbol: string
+          total_value: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          account_id: string
+          created_at?: string | null
+          current_price?: number | null
+          id?: string
+          quantity: number
+          ticker_symbol: string
+          total_value?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          account_id?: string
+          created_at?: string | null
+          current_price?: number | null
+          id?: string
+          quantity?: number
+          ticker_symbol?: string
+          total_value?: number | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "investment_holdings_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "linked_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      linked_accounts: {
+        Row: {
+          account_mask: string | null
+          account_name: string
+          account_type: Database["public"]["Enums"]["account_type"]
+          balance: number | null
+          created_at: string | null
+          id: string
+          plaid_access_token: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          account_mask?: string | null
+          account_name: string
+          account_type: Database["public"]["Enums"]["account_type"]
+          balance?: number | null
+          created_at?: string | null
+          id?: string
+          plaid_access_token?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          account_mask?: string | null
+          account_name?: string
+          account_type?: Database["public"]["Enums"]["account_type"]
+          balance?: number | null
+          created_at?: string | null
+          id?: string
+          plaid_access_token?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          account_locked: boolean | null
+          account_locked_until: string | null
+          created_at: string | null
+          email: string
+          failed_login_attempts: number | null
+          first_name: string | null
+          id: string
+          last_name: string | null
+          two_fa_enabled: boolean | null
+          updated_at: string | null
+        }
+        Insert: {
+          account_locked?: boolean | null
+          account_locked_until?: string | null
+          created_at?: string | null
+          email: string
+          failed_login_attempts?: number | null
+          first_name?: string | null
+          id: string
+          last_name?: string | null
+          two_fa_enabled?: boolean | null
+          updated_at?: string | null
+        }
+        Update: {
+          account_locked?: boolean | null
+          account_locked_until?: string | null
+          created_at?: string | null
+          email?: string
+          failed_login_attempts?: number | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          two_fa_enabled?: boolean | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          account_id: string
+          amount: number
+          category: string | null
+          created_at: string | null
+          date: string
+          id: string
+          merchant_name: string | null
+          plaid_transaction_id: string | null
+        }
+        Insert: {
+          account_id: string
+          amount: number
+          category?: string | null
+          created_at?: string | null
+          date: string
+          id?: string
+          merchant_name?: string | null
+          plaid_transaction_id?: string | null
+        }
+        Update: {
+          account_id?: string
+          amount?: number
+          category?: string | null
+          created_at?: string | null
+          date?: string
+          id?: string
+          merchant_name?: string | null
+          plaid_transaction_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "linked_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      account_type: "depository" | "credit" | "investment"
+      app_role: "end_user" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +403,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      account_type: ["depository", "credit", "investment"],
+      app_role: ["end_user", "admin"],
+    },
   },
 } as const

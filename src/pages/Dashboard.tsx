@@ -20,19 +20,14 @@ const Dashboard = () => {
               <h1 className="text-4xl font-bold text-foreground mb-2">Welcome back{user?.email ? `, ${user.email.split('@')[0]}` : ''}</h1>
               <p className="text-muted-foreground">Here's your financial overview</p>
             </div>
-            <div className="flex gap-3">
-              <Button className="bg-gradient-primary shadow-medium hover:shadow-strong transition-all duration-300">
-                Link New Account
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={signOut}
-                className="gap-2"
-              >
-                <LogOut className="w-4 h-4" />
-                Sign Out
-              </Button>
-            </div>
+            <Button 
+              variant="outline" 
+              onClick={signOut}
+              className="gap-2"
+            >
+              <LogOut className="w-4 h-4" />
+              Sign Out
+            </Button>
           </div>
 
           {/* Stats Grid */}
